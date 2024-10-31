@@ -20,7 +20,7 @@ namespace SubtitleFixer
                 x /= 60;
             }
             rezult += Convert.ToDouble(splitter[splitter.Length - 1]) / 1000.0;
-            Console.WriteLine(rezult);
+            //Console.WriteLine(rezult);
             return rezult;
         }
         private static string DeConvertTime(double time)
@@ -56,7 +56,7 @@ namespace SubtitleFixer
                         string new_line = line;
                         if (line.Contains("-->"))
                         {
-                            Console.WriteLine($"{new_line}");
+                            //Console.WriteLine($"{new_line}");
                             new_line = "";
                             string[] splitter=line.Split(new string[] { "--> " }, StringSplitOptions.None);
                             foreach (string splitted in splitter){
@@ -66,7 +66,7 @@ namespace SubtitleFixer
                                 new_line += " --> ";
                             }
                             new_line=new_line.Remove(new_line.Length - 4);
-                            Console.WriteLine($"{new_line}");
+                            //Console.WriteLine($"{new_line}");
                         }
                         sw.WriteLine(new_line);
                     }
