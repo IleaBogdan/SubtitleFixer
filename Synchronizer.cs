@@ -16,17 +16,19 @@ namespace SubtitleFixer
             string[] splitter = time.Split(':', ',');
             for (int i=0; i<splitter.Length-1; i++)
             {
-                rezult += x * Convert.ToDouble(splitter[i]);
+                rezult += (x*Convert.ToInt32(splitter[i]));
                 x /= 60;
             }
-            return rezult+Convert.ToDouble(splitter[splitter.Length-1])/1000.0;
+            rezult += Convert.ToDouble(splitter[splitter.Length - 1]) / 1000.0;
+            Console.WriteLine(rezult);
+            return rezult;
         }
         private static string DeConvertTime(double time)
         {
             int timeFixer = Convert.ToInt32(time);
             time-=timeFixer;
             string converter=Convert.ToString(timeFixer / 3600), rezult=(converter.Length>1 ? converter : "0"+converter)+":";
-            timeFixer %= 60;
+            timeFixer %= 3600;
             converter = Convert.ToString(timeFixer / 60);
             rezult += (converter.Length > 1 ? converter : "0" + converter) + ":";
             timeFixer %= 60;

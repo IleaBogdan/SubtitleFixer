@@ -22,21 +22,21 @@ namespace SubtitleFixer
             File.Copy(filename, filename + ".bak", true);
             string[] lines = File.ReadAllLines(filename,
                 System.Text.Encoding.GetEncoding(1252));
-            while (input != "stop")
+            while (input != "asd")
             {
                 input = Console.ReadLine();
                 if (input == "?")
                 {
-                    Console.WriteLine("conv == Conversie Diacritice\nsync == Sincronizare subtitrare\nstop == Oprire Program");
+                    Console.WriteLine("cd == Conversie Diacritice\nsc == Sincronizare subtitrare\nasd == Oprire Program");
                 }
-                if (input == "conv")
+                else if (input == "cd")
                 {
                     ConversieDiacritice.Conversion(lines, filename);
                 }
-                if (input == "sync")
+                else if (input == "sc")
                 {
                     Synchronizer.Synchronize(lines, filename);
-                }
+                } else if (input !="asd")Console.WriteLine("Wrong input!");
                 //Console.WriteLine(input);
             }
         }
