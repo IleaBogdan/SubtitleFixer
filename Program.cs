@@ -17,9 +17,10 @@ namespace SubtitleFixer
                 Console.WriteLine("Missing file!");
                 return;
             }
-            string input="start", filename=args[0];
+            string input = "start";
+            string filename = args[0];
             File.Copy(filename, filename + ".bak", true);
-            string[] lines= File.ReadAllLines(filename,
+            string[] lines = File.ReadAllLines(filename,
                 System.Text.Encoding.GetEncoding(1252));
             while (input != "stop")
             {
@@ -30,15 +31,11 @@ namespace SubtitleFixer
                 }
                 if (input == "conv")
                 {
-                    Console.WriteLine("Conversie Diacritice!");
                     ConversieDiacritice.Conversion(lines, filename);
-                    Console.WriteLine("Terminare Conversie!");
                 }
                 if (input == "sync")
                 {
-                    Console.WriteLine("Sincronizare!");
-
-                    Console.WriteLine("Sincronizare Terminata!");
+                    Synchronizer.Synchronize(lines, filename);
                 }
                 //Console.WriteLine(input);
             }

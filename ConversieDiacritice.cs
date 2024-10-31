@@ -11,7 +11,8 @@ namespace SubtitleFixer
     {
         public static void Conversion(string[] lines, string filename){
             if (lines.Length == 0) { 
-                Console.WriteLine("No line in source file!");
+                Console.WriteLine("No lines in source file!");
+                return;
             }
             using (StreamWriter sw = new StreamWriter(File.Open(filename, FileMode.Create), Encoding.UTF8))
             {
@@ -27,6 +28,7 @@ namespace SubtitleFixer
                     sw.WriteLine(new_line);
                 }
             }
+            Console.WriteLine("Terminare Conversie!");
         }
     }
 }
