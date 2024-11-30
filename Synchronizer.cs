@@ -35,7 +35,7 @@ namespace SubtitleFixer
             converter = Convert.ToString(timeFixer);
             rezult += (converter.Length > 1 ? converter : "0" + converter) + ",";
             timeFixer = Convert.ToInt32(time * 1000);
-            return rezult+ Convert.ToString(timeFixer);
+            return rezult + Convert.ToString(timeFixer);
         }
         public static void Synchronize(string[] lines, string filename)
         {
@@ -49,35 +49,41 @@ namespace SubtitleFixer
             double numb;
             if (double.TryParse(input, out numb))
             {
-                using (StreamWriter sw = new StreamWriter(File.Open(filename, FileMode.Create), Encoding.UTF8))
+                string[] verif= lines[1].Split(new string[] { "--> " }, StringSplitOptions.None);
+                //Console.WriteLine(Math.Abs(numb)> Math.Abs(ConvertTime(verif[0])));
+                if (Math.Abs(numb) > Math.Abs(ConvertTime(verif[0])) && numb<0.0)
                 {
-                    foreach (string line in lines)
-                    {
-                        string new_line = line;
-                        if (line.Contains("-->"))
-                        {
-                            //Console.WriteLine($"{new_line}");
-                            new_line = "";
-                            string[] splitter=line.Split(new string[] { "--> " }, StringSplitOptions.None);
-                            foreach (string splitted in splitter){
-                                double time = ConvertTime(splitted);
-                                time += numb;
-                                new_line += DeConvertTime(time);
-                                new_line += " --> ";
-                            }
-                            new_line=new_line.Remove(new_line.Length - 4);
-                            //Console.WriteLine($"{new_line}");
-                        }
-                        sw.WriteLine(new_line);
-                    }
+                    Console.WriteLine("File could not be synced.\n Negative timeing error");
                 }
+                else using (StreamWriter sw = new StreamWriter(File.Open(filename, FileMode.Create), Encoding.UTF8))
+                {
+                        foreach (string line in lines)
+                        {
+                            string new_line = line;
+                            if (line.Contains("-->"))
+                            {
+                                //Console.WriteLine($"{new_line}");
+                                new_line = "";
+                                string[] splitter=line.Split(new string[] { "--> " }, StringSplitOptions.None);
+                                foreach (string splitted in splitter){
+                                    double time = ConvertTime(splitted);
+                                    time += numb;
+                                    new_line += DeConvertTime(time);
+                                    new_line += " --> ";
+                                }
+                                new_line=new_line.Remove(new_line.Length - 4);
+                                //Console.WriteLine($"{new_line}");
+                            }
+                            sw.WriteLine(new_line);
+                        }
+                    }
+                    Console.WriteLine("Sincronizare Terminata!");
             }
             else
             {
                 Console.WriteLine("Failed to sync");
                 return;
             }
-            Console.WriteLine("Sincronizare Terminata!");
         }
     }
 }
