@@ -17,6 +17,8 @@ namespace SubtitleFixer
                 Console.WriteLine("Missing file!");
                 return;
             }
+            Console.WriteLine("Subtitle Program active. Press '?' for info or one of the following commands");
+            Console.WriteLine("cd == Conversie Diacritice\nsc == Sincronizare subtitrare\nasd == Oprire Program");
             string input = "start";
             string filename = args[0];
             File.Copy(filename, filename + ".bak", true);
@@ -27,6 +29,7 @@ namespace SubtitleFixer
                 input = Console.ReadLine();
                 if (input == "?")
                 {
+                    Console.Clear();
                     Console.WriteLine("cd == Conversie Diacritice\nsc == Sincronizare subtitrare\nasd == Oprire Program");
                 }
                 else if (input == "cd")
